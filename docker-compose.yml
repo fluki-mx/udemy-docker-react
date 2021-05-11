@@ -1,0 +1,24 @@
+version: '3'
+services: 
+    web-app:
+        build:
+            context: . # Indica donde se encuentra la imagen Dockerfile
+            dockerfile: Dockerfile.dev # Indica que archivo de imagen necesita
+        environment:
+            - CHOKIDAR_USEPOLLING=true
+        ports:
+            - "3000:3000"
+        volumes:
+            - /app/node_modules # Indica que no se modificará la carpeta node_modules del contenedor
+            - .:/app # Indica que se hará una referencia a la carpeta donde se encuentra el archivo docker-compose.yml (con el fin de refrescar siempre el proyecto en este caso de React)
+    # web-app-tests:
+    #     build:
+    #         context: . # Indica donde se encuentra la imagen Dockerfile
+    #         dockerfile: Dockerfile.dev # Indica que archivo de imagen necesita
+    #     environment:
+    #         - CHOKIDAR_USEPOLLING=true
+    #         - FAST_REFRESH=true
+    #     volumes:
+    #         - /app/node_modules
+    #         - .:/app
+    #     command: ["npm", "run", "test"]
